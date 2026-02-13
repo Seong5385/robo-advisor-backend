@@ -1,4 +1,4 @@
-package io.github.yourid.roboadvisor.roboadvisorbackend.test;
+package io.github.yourid.roboadvisor.roboadvisorbackend.restController;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
