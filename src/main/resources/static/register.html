@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+</head>
+<body>
+<h1>회원가입</h1>
+
+<form id="signupForm">
+    <input type="text" id="userId" placeholder="아이디" required /><br><br>
+    <input type="password" id="password" placeholder="비밀번호" required /><br><br>
+    <input type="text" id="name" placeholder="이름" required /><br><br>
+    <input type="email" id="email" placeholder="이메일" required /><br><br>
+    <input type="text" id="phoneNum" placeholder="전화번호"><br><br>
+    <input type="number" id="age" placeholder="나이"><br><br>
+    <input type="text" id="address" placeholder="주소"><br><br>
+
+    <button type="submit">가입하기</button>
+</form>
+
+<script>
+    document.getElementById("signupForm").addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const data = {
+            userId: document.getElementById("userId").value,
+            password: document.getElementById("password").value,
+            name: document.getElementById("name").value,
+            email: document.getElementById("email").value,
+            phoneNum: document.getElementById("phoneNum").value,
+            age: document.getElementById("age").value
+                ? parseInt(document.getElementById("age").value)
+                : null,
+            address: document.getElementById("address").value
+        };
+
+        const response = await fetch("/roboAdvisor/users/register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            alert("회원가입 성공!");
+            window.location.href = "/login.html";
+        } else {
+            alert("회원가입 실패: " + JSON.stringify(result));
+        }
+    });
+</script>
+</body>
+</html>
