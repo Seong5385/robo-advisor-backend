@@ -1,4 +1,7 @@
-package io.github.yourid.roboadvisor.roboadvisorbackend.config;
+package io.github.Seong5381.roboadvisor.roboadvisorbackend.global.config;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +22,11 @@ public class SecurityConfig {
                 .httpBasic(basic -> basic.disable()); // 기본 basic 인증 제거
 
         return http.build();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }
 
