@@ -22,10 +22,10 @@
 
 ### Spring Boot
 
--   Java\
--   Spring Boot\
--   Spring Data JPA\
--   Spring Security (JWT)\
+-   Java
+-   Spring Boot
+-   Spring Data JPA
+-   Spring Security (JWT)
 -   Swagger
 
 ### Database
@@ -42,18 +42,12 @@
 
 ### React
 
--   React\
+-   React
 -   Next.js
 
 ------------------------------------------------------------------------
 
-## 🔹 AI / Data
-
-### Python
-
--   Python\
--   Pandas\
--   SHAP
+## 🔹 AI / Data(아직 미정)
 
 ------------------------------------------------------------------------
 
@@ -61,7 +55,7 @@
 
 ### Infrastructure
 
--   Docker\
+-   Docker
 -   Git
 
 ------------------------------------------------------------------------
