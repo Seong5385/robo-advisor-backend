@@ -1,9 +1,15 @@
 package io.github.Seong5381.roboadvisor.roboadvisorbackend.domain.user.entry;
 
 import io.github.Seong5381.roboadvisor.roboadvisorbackend.global.entry.BaseTimeEntry;
+import io.github.Seong5381.roboadvisor.roboadvisorbackend.global.type.RiskType;
+import io.github.Seong5381.roboadvisor.roboadvisorbackend.global.type.Role;
 import jakarta.persistence.*;
 
 import lombok.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="users")
@@ -11,9 +17,10 @@ import lombok.*;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
-public class Users extends BaseTimeEntry {
+@EntityListeners(AuditingEntityListener.class)
+public class User extends BaseTimeEntry {
 
-    @Id
+    @Id // primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -39,6 +46,13 @@ public class Users extends BaseTimeEntry {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role roleType;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private RiskType personality;
+
+    @OneToMany(mappedBy = "user")
+    private List<UserSurvey> surveyResults = new ArrayList<>();
 
     public void updateProfile(String name, String email, String phone, String address) {
         this.name = name;

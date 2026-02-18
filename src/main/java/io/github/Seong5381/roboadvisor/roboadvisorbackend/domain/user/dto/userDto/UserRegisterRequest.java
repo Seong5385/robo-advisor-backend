@@ -1,4 +1,4 @@
-package io.github.Seong5381.roboadvisor.roboadvisorbackend.domain.user.dto;
+package io.github.Seong5381.roboadvisor.roboadvisorbackend.domain.user.dto.userDto;
 
 import lombok.*;
 
