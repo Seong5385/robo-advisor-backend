@@ -1,11 +1,9 @@
 package io.github.Seong5381.roboadvisor.roboadvisorbackend.domain.user.service;
 
-import io.github.Seong5381.roboadvisor.roboadvisorbackend.domain.user.dto.Response;
-import io.github.Seong5381.roboadvisor.roboadvisorbackend.domain.user.dto.UserRegisterRequest;
-import io.github.Seong5381.roboadvisor.roboadvisorbackend.domain.user.entry.Role;
-import io.github.Seong5381.roboadvisor.roboadvisorbackend.domain.user.entry.Users;
+import io.github.Seong5381.roboadvisor.roboadvisorbackend.domain.user.dto.userDto.UserResponse;
+import io.github.Seong5381.roboadvisor.roboadvisorbackend.global.type.Role;
+import io.github.Seong5381.roboadvisor.roboadvisorbackend.domain.user.entry.User;
 import io.github.Seong5381.roboadvisor.roboadvisorbackend.domain.user.repository.UserRepository;
-import io.github.Seong5381.roboadvisor.roboadvisorbackend.global.config.JwtProvider;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
@@ -19,11 +17,11 @@ public class UserRegisterService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public Response findById(Long id) {
-        Users user = userRepository.findById(id)
+    public UserResponse findById(Long id) {
+        User user = userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다."));
 
-        return Response.builder()
+        return UserResponse.builder()
                 .id(user.getId())
                 .userId(user.getUserId())
                 .name(user.getName())
@@ -46,7 +44,7 @@ public class UserRegisterService {
 
         String encodedPassword = passwordEncoder.encode(password);
 
-        Users user = Users.builder()
+        User user = User.builder()
                 .userId(userId)
                 .password(encodedPassword)
                 .name(name)

@@ -1,9 +1,10 @@
 package io.github.Seong5381.roboadvisor.roboadvisorbackend.domain.user.restController;
 
-import io.github.Seong5381.roboadvisor.roboadvisorbackend.domain.user.dto.UserLoginRequest;
-import io.github.Seong5381.roboadvisor.roboadvisorbackend.domain.user.dto.UserRegisterRequest;
+import io.github.Seong5381.roboadvisor.roboadvisorbackend.domain.user.dto.userDto.UserLoginRequest;
+import io.github.Seong5381.roboadvisor.roboadvisorbackend.domain.user.dto.userDto.UserRegisterRequest;
 import io.github.Seong5381.roboadvisor.roboadvisorbackend.domain.user.service.UserLoginService;
 import io.github.Seong5381.roboadvisor.roboadvisorbackend.domain.user.service.UserRegisterService;
+import io.github.Seong5381.roboadvisor.roboadvisorbackend.domain.user.service.UserSurveyService;
 import io.github.Seong5381.roboadvisor.roboadvisorbackend.global.common.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserRestController {
     private final UserRegisterService userRegisterService;
     private final UserLoginService userLoginService;
+    private final UserSurveyService userSurveyService;
 
     @PostMapping("/register")
     public ResponseEntity<ApiResponses<String>> registerUser(@RequestBody UserRegisterRequest request) {
