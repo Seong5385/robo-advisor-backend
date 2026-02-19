@@ -1,41 +1,26 @@
 package io.github.Seong5381.roboadvisor.roboadvisorbackend.domain.user.restController;
 
-import io.github.Seong5381.roboadvisor.roboadvisorbackend.domain.user.dto.userDto.UserLoginRequest;
-import io.github.Seong5381.roboadvisor.roboadvisorbackend.domain.user.dto.userDto.UserRegisterRequest;
-import io.github.Seong5381.roboadvisor.roboadvisorbackend.domain.user.service.UserLoginService;
-import io.github.Seong5381.roboadvisor.roboadvisorbackend.domain.user.service.UserRegisterService;
-import io.github.Seong5381.roboadvisor.roboadvisorbackend.domain.user.service.UserSurveyService;
+import io.github.Seong5381.roboadvisor.roboadvisorbackend.domain.user.dto.userDto.UserResponse;
+import io.github.Seong5381.roboadvisor.roboadvisorbackend.domain.user.entry.User;
+import io.github.Seong5381.roboadvisor.roboadvisorbackend.domain.user.repository.UserRepository;
+import io.github.Seong5381.roboadvisor.roboadvisorbackend.domain.user.service.UserProfileService;
 import io.github.Seong5381.roboadvisor.roboadvisorbackend.global.common.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/roboAdvisor/users")
 @RequiredArgsConstructor
+@RequestMapping("/roboAdvisor/users")
 public class UserRestController {
-    private final UserRegisterService userRegisterService;
-    private final UserLoginService userLoginService;
-    private final UserSurveyService userSurveyService;
+    private final UserProfileService userProfileService;
 
-    @PostMapping("/register")
-    public ResponseEntity<ApiResponses<String>> registerUser(@RequestBody UserRegisterRequest request) {
-        Long users = userRegisterService.register(
-                request.getUserId(),
-                request.getPassword(),
-                request.getName(),
-                request.getEmail(),
-                request.getPhoneNum(),
-                request.getAge(),
-                request.getAddress()
-        );
-
-        return ResponseEntity.ok(ApiResponses.success("회원가입 성공"));
+    @GetMapping("/{userId}")
+    public UserResponse userProfile(@PathVariable String userId) {
+        return userProfileService.userProfile(userId);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<ApiResponses<String>> login(@RequestBody UserLoginRequest request) {
-        String token = userLoginService.login(request.getUserId(), request.getPassword());
-        return ResponseEntity.ok(ApiResponses.success(token));
-    }
 }

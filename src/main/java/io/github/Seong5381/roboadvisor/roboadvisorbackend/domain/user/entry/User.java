@@ -49,10 +49,7 @@ public class User extends BaseTimeEntry {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private RiskType personality;
-
-    @OneToMany(mappedBy = "user")
-    private List<UserSurvey> surveyResults = new ArrayList<>();
+    private RiskType tendency;
 
     public void updateProfile(String name, String email, String phone, String address) {
         this.name = name;
@@ -61,8 +58,13 @@ public class User extends BaseTimeEntry {
         this.address = address;
     }
 
+    public void updateRiskType(RiskType tendency) {
+        this.tendency = tendency;
+    }
+
     public void changePassword(String newPassword) {
         this.password = newPassword;
     }
+
 
 }

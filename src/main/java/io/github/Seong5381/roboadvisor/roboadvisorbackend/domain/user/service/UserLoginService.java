@@ -3,6 +3,8 @@ package io.github.Seong5381.roboadvisor.roboadvisorbackend.domain.user.service;
 import io.github.Seong5381.roboadvisor.roboadvisorbackend.domain.user.entry.User;
 import io.github.Seong5381.roboadvisor.roboadvisorbackend.domain.user.repository.UserRepository;
 import io.github.Seong5381.roboadvisor.roboadvisorbackend.global.config.JwtProvider;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,5 +22,13 @@ public class UserLoginService {
         User user = userRepository.findByUserId(userId).orElseThrow(() -> new IllegalArgumentException("유저 없음"));
         if(!passwordEncoder.matches(password, user.getPassword())) throw new IllegalArgumentException("비밀번호 틀림");
         return jwtProvider.generateToken(user.getUserId());
+    }
+
+    public void logout(HttpServletResponse response) {
+        Cookie cookie = new Cookie("token", null);
+        cookie.setHttpOnly(true);
+        cookie.setPath("/");
+        cookie.setMaxAge(0); // 즉시 만료
+        response.addCookie(cookie);
     }
 }
